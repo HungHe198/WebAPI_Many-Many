@@ -1,0 +1,90 @@
+﻿@model IEnumerable<LAB8.DATA.Models.People>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdLaptop)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MoTa)
+                </td>
+                <td>
+                    @if (item.IdCar != null && item.IdCar.Any())
+                    {
+                        foreach (var carId in item.IdCar)
+                        {
+                            @carId
+
+                            <span>, </span>
+                        }
+                    }
+                    else
+                    {
+                        <span>Không có xe</span> <!-- Hoặc một thông báo tùy chỉnh nếu danh sách rỗng -->
+                    }
+                </td>
+                <td>
+                    @if (item.IdLaptop != null && item.IdLaptop.Any())
+                    {
+                        foreach (var laptopId in item.IdLaptop)
+                        {
+                            @laptopId
+
+                            <span>, </span>
+                        }
+                    }
+                    else
+                    {
+                        <span>Không có laptop</span> <!-- Hoặc một thông báo tùy chỉnh nếu danh sách rỗng -->
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
